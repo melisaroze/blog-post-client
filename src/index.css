@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+html, body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; /* prevents horizontal scrollbars */
+}
+
+.homepage {
+  background-image: url("./images/bg.jpg");
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 600px;       /* full screen height */
+  color: black;             /* text color */
+  display: flex;
+  width: 100vw;  
+  align-items: center;
+  justify-content: center;                                
+}
+
+
+.navbar .nav-link {
+  color: black75 !important;
+  transition: color 0.3s ease;       
+}
+
+.navbar .nav-link:hover {
+  color: #ce2564 !important;
+  text-decoration: underline;
+}
+
+
+.container-fluid, .row, .col {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+footer {
+  background-color: #292741 !important;
+  width: 100vw;
+  margin: 0;
+  padding: 1rem 0;
+}
+
+.cta {
+  background-color: #cd2563;
+  color: white;
+  padding: 8px;
+}
+
+.cta:hover {
+  background-color: #cd2563;
+  color: black;
+}
+
+.App {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
