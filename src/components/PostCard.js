@@ -1,6 +1,6 @@
 import {useState} from 'react';
-import { Card, Button, Form } from 'react-bootstrap';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Card, Form } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { Notyf } from 'notyf'; 
 
 const notyf = new Notyf();
@@ -31,25 +31,38 @@ const [isEditing, setIsEditing] = useState(false);
                 content: updatedContent
             })
         })
-        .then(res => res.json())
-        .then(data => {
+        .then((res) =>
+          res.json().then((data) => ({
+            status: res.status,
+            data,
+          }))
+        )
 
-            console.log(data)
+        .then(({ status, data }) => {
+          if (status === 403) {
+            notyf.error("You are not allowed to update this post.");
 
-            if (data.error === "Error in Saving") {
+          } else if (status === 404) {
+            notyf.error("Post not found.");
 
-            	notyf.error('Unsuccessful Blog Post Update'); 
+          } else if (status === 500) {
+            notyf.error("Server error occurred.");
 
-            } else {
-
-            	notyf.success(' Blog Post Updated');
-          
-              navigate("/posts")
-
-            }
-
+          } else if (status === 200) {
+            notyf.success("Blog Post Updated");
+            setTimeout(() => notyf.dismissAll(), 800);
+            fetchData();
+            
+          } else {
+            notyf.error("Unexpected response from server.");
+          }
         })
+        .catch((err) => {
+          console.error("Error updating post:", err);
+          notyf.error("Network or server error. Please try again later.");
+        });
     }
+
 
     function deletePost(id) {
 
@@ -141,7 +154,7 @@ return (
         className={`btn btn-${isEditing ? "success" : "primary"} btn-sm`}
         onClick={() => {
           if (isEditing) {
-            updatePost(updatedTitle, updatedContent); 
+            updatePost(_id); 
           }
           setIsEditing(!isEditing);
 
