@@ -1,175 +1,208 @@
 import {useState} from 'react';
-import { Card, Form } from 'react-bootstrap';
+import { Card, Form, Button, ListGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { Notyf } from 'notyf'; 
 
 const notyf = new Notyf();
 
-export default function PostCard({post, fetchData}) {
+// export default function PostCard({post, fetchData}) {
 
-const { _id, title, content, author, creationDate, comments } = post;
+// const { _id, title, content, author, creationDate, comments } = post;
 
-const [updatedTitle, setupdatedTitle] = useState(title);
-const [updatedContent, setupdatedContent] = useState(content);
+// const [updatedTitle, setupdatedTitle] = useState(title);
+// const [updatedContent, setupdatedContent] = useState(content);
 
-const navigate = useNavigate();
+// const navigate = useNavigate();
 
-const [isEditing, setIsEditing] = useState(false);
+// const [isEditing, setIsEditing] = useState(false);
 
 
-  function updatePost(id) {
+//   function updatePost(id) {
 
-    fetch(`https://blog-post-api-alvarez.onrender.com/posts/updatePost/${id}`,{
+//     fetch(`https://blog-post-api-alvarez.onrender.com/posts/updatePost/${id}`,{
 
-            method: 'PATCH',
-            headers: {
-                "Content-Type": "application/json",
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
-            }, 
-              body: JSON.stringify({
-                title: updatedTitle,
-                content: updatedContent
-            })
-        })
-        .then((res) =>
-          res.json().then((data) => ({
-            status: res.status,
-            data,
-          }))
-        )
+//             method: 'PATCH',
+//             headers: {
+//                 "Content-Type": "application/json",
+//                 'Authorization': `Bearer ${localStorage.getItem("token")}`
+//             }, 
+//               body: JSON.stringify({
+//                 title: updatedTitle,
+//                 content: updatedContent
+//             })
+//         })
+//         .then((res) =>
+//           res.json().then((data) => ({
+//             status: res.status,
+//             data,
+//           }))
+//         )
 
-        .then(({ status, data }) => {
-          if (status === 403) {
-            notyf.error("You are not allowed to update this post.");
+//         .then(({ status, data }) => {
+//           if (status === 403) {
+//             notyf.error("You are not allowed to update this post.");
 
-          } else if (status === 404) {
-            notyf.error("Post not found.");
+//           } else if (status === 404) {
+//             notyf.error("Post not found.");
 
-          } else if (status === 500) {
-            notyf.error("Server error occurred.");
+//           } else if (status === 500) {
+//             notyf.error("Server error occurred.");
 
-          } else if (status === 200) {
-            notyf.success("Blog Post Updated");
-            setTimeout(() => notyf.dismissAll(), 800);
-            fetchData();
+//           } else if (status === 200) {
+//             notyf.success("Blog Post Updated");
+//             setTimeout(() => notyf.dismissAll(), 800);
+//             fetchData();
             
-          } else {
-            notyf.error("Unexpected response from server.");
-          }
-        })
-        .catch((err) => {
-          console.error("Error updating post:", err);
-          notyf.error("Network or server error. Please try again later.");
-        });
-    }
+//           } else {
+//             notyf.error("Unexpected response from server.");
+//           }
+//         })
+//         .catch((err) => {
+//           console.error("Error updating post:", err);
+//           notyf.error("Network or server error. Please try again later.");
+//         });
+//     }
 
 
-    function deletePost(id) {
+//     function deletePost(id) {
 
-            fetch(`https://blog-post-api-alvarez.onrender.com/posts/deletePost/${id}`,{
+//             fetch(`https://blog-post-api-alvarez.onrender.com/posts/deletePost/${id}`,{
 
-            method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json",
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
-            }
-        })
-        .then((res) =>
-          res.json().then((data) => ({
-            status: res.status,
-            data,
-          }))
-        )
+//             method: 'DELETE',
+//             headers: {
+//                 "Content-Type": "application/json",
+//                 'Authorization': `Bearer ${localStorage.getItem("token")}`
+//             }
+//         })
+//         .then((res) =>
+//           res.json().then((data) => ({
+//             status: res.status,
+//             data,
+//           }))
+//         )
 
-        .then(({ status, data }) => {
-          if (status === 403) {
-            notyf.error("You are not allowed to delete this post.");
+//         .then(({ status, data }) => {
+//           if (status === 403) {
+//             notyf.error("You are not allowed to delete this post.");
 
-          } else if (status === 404) {
-            notyf.error("Post not found.");
+//           } else if (status === 404) {
+//             notyf.error("Post not found.");
 
-          } else if (status === 500) {
-            notyf.error("Server error occurred.");
+//           } else if (status === 500) {
+//             notyf.error("Server error occurred.");
 
-          } else if (status === 200) {
-            notyf.success("Blog Post Deleted");
-            setTimeout(() => notyf.dismissAll(), 800);
-            fetchData();
+//           } else if (status === 200) {
+//             notyf.success("Blog Post Deleted");
+//             setTimeout(() => notyf.dismissAll(), 800);
+//             fetchData();
             
-          } else {
-            notyf.error("Unexpected response from server.");
-          }
-        })
-        .catch((err) => {
-          console.error("Error deleting post:", err);
-          notyf.error("Network or server error. Please try again later.");
-        });
-    }
+//           } else {
+//             notyf.error("Unexpected response from server.");
+//           }
+//         })
+//         .catch((err) => {
+//           console.error("Error deleting post:", err);
+//           notyf.error("Network or server error. Please try again later.");
+//         });
+//     }
 
 
 
 
-return (
-  <Card className="mt-3">
-    <Card.Body>
-      {/* Title and Fields */}
-      {isEditing ? (
-        <>
-          <Form.Group className="mb-2">
-            <Form.Label>Post Title</Form.Label>
-            <Form.Control
-              type="text"
-              value={updatedTitle}
-              onChange={(e) => setupdatedTitle(e.target.value)}
-            />
-          </Form.Group>
+// return (
+//   <Card className="mt-3">
+//     <Card.Body>
+//       {/* Title and Fields */}
+//       {isEditing ? (
+//         <>
+//           <Form.Group className="mb-2">
+//             <Form.Label>Post Title</Form.Label>
+//             <Form.Control
+//               type="text"
+//               value={updatedTitle}
+//               onChange={(e) => setupdatedTitle(e.target.value)}
+//             />
+//           </Form.Group>
 
-          <Form.Group className="mb-2">
-            <Form.Label>Content</Form.Label>
-            <Form.Control
-              type="string"
-              value={updatedContent}
-              onChange={(e) => setupdatedContent(e.target.value)}
-            />
-          </Form.Group>
-        </>
-      ) : (
-        <>
-          <Card.Title>Post Title:</Card.Title>
-          <Card.Text>{updatedTitle}</Card.Text>
-          <Card.Subtitle>Content:</Card.Subtitle>
-          <Card.Text>{updatedContent}</Card.Text>
-          <Card.Subtitle>Author:</Card.Subtitle>
-          <Card.Text>{author}</Card.Text>
-          <Card.Subtitle>Creation Date:</Card.Subtitle>
-          <Card.Text>{creationDate}</Card.Text>
-          <Card.Subtitle>Comments:</Card.Subtitle>
-          <Card.Text>{comments.comment}</Card.Text>
-        </>
-      )}
-    </Card.Body>
+//           <Form.Group className="mb-2">
+//             <Form.Label>Content</Form.Label>
+//             <Form.Control
+//               type="string"
+//               value={updatedContent}
+//               onChange={(e) => setupdatedContent(e.target.value)}
+//             />
+//           </Form.Group>
+//         </>
+//       ) : (
+//         <>
+//           <Card.Title>Post Title:</Card.Title>
+//           <Card.Text>{updatedTitle}</Card.Text>
+//           <Card.Subtitle>Content:</Card.Subtitle>
+//           <Card.Text>{updatedContent}</Card.Text>
+//           <Card.Subtitle>Author:</Card.Subtitle>
+//           <Card.Text>{author}</Card.Text>
+//           <Card.Subtitle>Creation Date:</Card.Subtitle>
+//           <Card.Text>{creationDate}</Card.Text>
+//           <Card.Subtitle>Comments:</Card.Subtitle>
+//           <Card.Text>{comments.comment}</Card.Text>
+//         </>
+//       )}
+//     </Card.Body>
 
-    <Card.Footer className="d-flex justify-content-around">
-      <button
-        className={`btn btn-${isEditing ? "success" : "primary"} btn-sm`}
-        onClick={() => {
-          if (isEditing) {
-            updatePost(_id); 
-          }
-          setIsEditing(!isEditing);
+//     <Card.Footer className="d-flex justify-content-around">
+//       <button
+//         className={`btn btn-${isEditing ? "success" : "primary"} btn-sm`}
+//         onClick={() => {
+//           if (isEditing) {
+//             updatePost(_id); 
+//           }
+//           setIsEditing(!isEditing);
 
-        }}
-      >
-        {isEditing ? "Save" : "Update"}
-      </button>
+//         }}
+//       >
+//         {isEditing ? "Save" : "Update"}
+//       </button>
 
-              <button
-                className="btn btn-danger btn-sm"
-                onClick={() => deletePost(_id)}
-              >
-                Delete
-              </button>
-    </Card.Footer>
-  </Card>
-)
-};
+//               <button
+//                 className="btn btn-danger btn-sm"
+//                 onClick={() => deletePost(_id)}
+//               >
+//                 Delete
+//               </button>
+//     </Card.Footer>
+//   </Card>
+// )
+// };
+
+
+export default function PostCard({ post, fetchData, updatePost, deletePost }) {
+  return (
+    <Card className="mb-3 shadow-sm">
+      <Card.Body>
+        <Card.Title>{post.title}</Card.Title>
+        <Card.Text>{post.content}</Card.Text>
+        <Card.Text>{post.author}</Card.Text>
+        <Card.Text>{new Date(post.creationDate).toLocaleDateString()}</Card.Text>
+        <Card.Text>{post.comments}</Card.Text>
+
+        <div className="d-flex justify-content-between">
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={() => updatePost(post._id)} 
+          >
+           Update
+          </Button>
+
+          <Button
+            variant="danger"
+            size="sm"
+            onClick={() => deletePost(post._id)} 
+          >
+            Delete
+          </Button>
+        </div>
+      </Card.Body>
+    </Card>
+  );
+}

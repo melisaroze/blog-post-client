@@ -36,14 +36,15 @@ function App() {
       if (typeof data.user !== "undefined") {
 
         setUser({
-          id: data.user._id,
-          isAdmin: data.user.isAdmin
+            id: data.user._id,
+            isAdmin: data.user.isAdmin
         });
 
       } else {
 
         setUser({
-          id: null
+          id: null,
+          isAdmin: null
         });
 
       }

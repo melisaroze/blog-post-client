@@ -11,7 +11,7 @@ export default function AppNavbar() {
 	const { user } = useContext(UserContext);
 
 	return(
-		<Navbar bg="white" variant="light" expand="lg" className="shadow-sm py-3">
+		<Navbar variant="light" expand="lg" className="shadow-sm py-3 navbar">
 			<Container fluid>
 			    <Navbar.Brand as={Link} to="/">Blog Post Management</Navbar.Brand>
 			    <Navbar.Toggle aria-controls="basic-navbar-nav" />

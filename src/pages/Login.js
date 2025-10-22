@@ -6,16 +6,16 @@ import UserContext from '../UserContext';
 
 export default function Login() {
 
-	const notyf = new Notyf();
+const notyf = new Notyf();
 
-	const { user, setUser } = useContext(UserContext);
+const { user, setUser } = useContext(UserContext);
 
-	const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+const [email, setEmail] = useState('');
+const [password, setPassword] = useState('');
 
-    const [isActive, setIsActive] = useState(true);
+const [isActive, setIsActive] = useState(true);
 
-    const navigate = useNavigate();
+const navigate = useNavigate();
 
 
     function authenticate(e) {

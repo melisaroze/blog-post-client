@@ -1,26 +1,33 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap');
 
-html, body {
-  font-family: 'Roboto', sans-serif;
+
+html, body, #root {
+  font-family: 'Rubik', sans-serif;
+  height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
-  width: 100%;
-  overflow-x: hidden; /* prevents horizontal scrollbars */
+  overflow-x: hidden; /* prevents horizontal scroll */
+    box-sizing: border-box;
 }
 
 .homepage {
   background-image: url("./images/bg.jpg");
-  background-size: 100% 100%;
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  min-height: 600px;       /* full screen height */
-  color: black;             /* text color */
+  width: 100%;
+  height: 100vh; /* full viewport height */
   display: flex;
-  width: 100vw;  
   align-items: center;
-  justify-content: center;                                
+  justify-content: center;
+  color: black;
+  text-align: center;
 }
 
+.navbar {
+  background-color: #e5e3d9;
+}
 
 .navbar .nav-link {
   color: black75 !important;
@@ -28,32 +35,35 @@ html, body {
 }
 
 .navbar .nav-link:hover {
-  color: #ce2564 !important;
+  color: #eb9d2a !important;
   text-decoration: underline;
 }
 
 
-.container-fluid, .row, .col {
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-footer {
-  background-color: #292741 !important;
-  width: 100vw;
+.homepage .container-fluid,
+.homepage .row,
+.homepage .col {
   margin: 0;
-  padding: 1rem 0;
+  padding: 0;
 }
 
 .cta {
-  background-color: #cd2563;
-  color: white;
-  padding: 8px;
+  background-color: #eb9d2a; /* golden-orange */
+  color: #111;
+  font-weight: 700;
+  border: 1px solid #8a5e10;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #8a5e10; /* shadow below */
+  transition: all 0.2s ease;
 }
 
 .cta:hover {
-  background-color: #cd2563;
-  color: black;
+  background-color: #c9891c; /* lighter shade on hover */
+  transform: translateY(-3px); /* move UP slightly */
+  box-shadow: 0 6px 0 #8a5e10; /* deeper shadow while lifted */
 }
 
 .App {

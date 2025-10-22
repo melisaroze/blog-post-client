@@ -1,6 +1,13 @@
 import React from 'react';
 
-const UserContext = React.createContext();
+const UserContext = React.createContext({
+	user: { id: null, 
+	isAdmin: null },
+ 		 setUser: () => {},
+ 		 unsetUser: () => {}
+
+});
+
 
 const UserProvider = UserContext.Provider;
 
