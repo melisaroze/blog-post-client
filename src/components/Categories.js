@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import { Link, NavLink } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import UserContext from '../UserContext';
 
 export default function Categories() {
@@ -10,25 +10,47 @@ export default function Categories() {
 	const { user } = useContext(UserContext);
 
 	return(
-		<Navbar variant="light" expand="lg" className="shadow-sm py-3 categories">
+		<div className="shadow-sm py-3 categories">
 			<Container fluid>
+				    <div className="ms-auto d-flex justify-content-center gap-5">
 
-				    <Nav className="ms-auto d-flex align-items-center gap-2">
-				        <Nav.Link 
-				        as={NavLink} 
+				    	<Link
+				    	className="categories-link" 
+				        as={Link} 
+				        to="/" 
+				        exact="true">All Categories
+				        </Link>
+
+				        <Link
+				        className="categories-link"  
+				        as={Link} 
 				        to="/" 
 				        exact="true">Parenting
-				        </Nav.Link>
+				        </Link>
 
-				        <Nav.Link 
-				        as={NavLink} 
+				        <Link 
+				        className="categories-link" 
+				        as={Link} 
 				        to="/" 
 				        exact="true">Health
-				        </Nav.Link>
-				        
+				        </Link>
 
-				    </Nav>
+				         <Link 
+				         className="categories-link" 
+				        as={Link} 
+				        to="/" 
+				        exact="true">Education
+				        </Link>
+
+				         <Link
+				         className="categories-link"  
+				        as={Link} 
+				        to="/" 
+				        exact="true">Inspiration
+				        </Link>
+				        
+				    </div>
 			</Container>
-		</Navbar>
+		</div>
 		)
 }
