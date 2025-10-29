@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { Form, Button, Card, Container, Row, Col } from 'react-bootstrap';
-import { Navigate, useNavigate } from 'react-router-dom'; 
+import { Navigate, useNavigate, Link } from 'react-router-dom'; 
 import { Notyf } from 'notyf'; 
 import UserContext from '../UserContext';
 
@@ -113,8 +113,9 @@ const navigate = useNavigate();
 	            <Form.Group controlId="userEmail">
 	                <Form.Label>Email address</Form.Label>
 	                <Form.Control 
+	                	className="mb-2"
 	                    type="text"
-	                    placeholder="Enter email"
+	                    placeholder="sample@mail.com"
 	                    value={email}
             			onChange={(e) => setEmail(e.target.value)}
 	                    required
@@ -124,6 +125,7 @@ const navigate = useNavigate();
 	            <Form.Group controlId="password">
 	                <Form.Label>Password</Form.Label>
 	                <Form.Control 
+	        	        className="mb-2"
 	                    type="password" 
 	                    placeholder="Password"
 	                    value={password}
@@ -133,15 +135,29 @@ const navigate = useNavigate();
 	            </Form.Group>
 
 	             { isActive ? 
-	                <Button variant="primary" type="submit" id="submitBtn">
+	                <Button
+	                className="submit-button" 
+	                variant="primary" 
+	                type="submit" 
+	                id="submitBtn">
 	                    Submit
 	                </Button>
 	                : 
-	                <Button variant="danger" type="submit" id="submitBtn" disabled>
+	                <Button 
+	                className="submit-button" 
+	                variant="danger" 
+	                type="submit" 
+	                id="submitBtn" 
+	                disabled>
 	                    Submit
 	                </Button>
 	            }
 	        </Form>
+
+	        <p className="mt-4 d-flex justify-content-center gap-1">
+			 	New here?
+			 	<Link to="/register"> Create an account</Link> 
+			 </p>
 	       </Card.Body>
          </Card>
         </Col>

@@ -1,208 +1,56 @@
 import {useState} from 'react';
-import { Card, Form, Button, ListGroup } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { Card, Form, Button, ListGroup, Container } from 'react-bootstrap';
+import { useNavigate} from 'react-router-dom';
 import { Notyf } from 'notyf'; 
 
 const notyf = new Notyf();
 
-// export default function PostCard({post, fetchData}) {
-
-// const { _id, title, content, author, creationDate, comments } = post;
-
-// const [updatedTitle, setupdatedTitle] = useState(title);
-// const [updatedContent, setupdatedContent] = useState(content);
-
-// const navigate = useNavigate();
-
-// const [isEditing, setIsEditing] = useState(false);
-
-
-//   function updatePost(id) {
-
-//     fetch(`https://blog-post-api-alvarez.onrender.com/posts/updatePost/${id}`,{
-
-//             method: 'PATCH',
-//             headers: {
-//                 "Content-Type": "application/json",
-//                 'Authorization': `Bearer ${localStorage.getItem("token")}`
-//             }, 
-//               body: JSON.stringify({
-//                 title: updatedTitle,
-//                 content: updatedContent
-//             })
-//         })
-//         .then((res) =>
-//           res.json().then((data) => ({
-//             status: res.status,
-//             data,
-//           }))
-//         )
-
-//         .then(({ status, data }) => {
-//           if (status === 403) {
-//             notyf.error("You are not allowed to update this post.");
-
-//           } else if (status === 404) {
-//             notyf.error("Post not found.");
-
-//           } else if (status === 500) {
-//             notyf.error("Server error occurred.");
-
-//           } else if (status === 200) {
-//             notyf.success("Blog Post Updated");
-//             setTimeout(() => notyf.dismissAll(), 800);
-//             fetchData();
-            
-//           } else {
-//             notyf.error("Unexpected response from server.");
-//           }
-//         })
-//         .catch((err) => {
-//           console.error("Error updating post:", err);
-//           notyf.error("Network or server error. Please try again later.");
-//         });
-//     }
-
-
-//     function deletePost(id) {
-
-//             fetch(`https://blog-post-api-alvarez.onrender.com/posts/deletePost/${id}`,{
-
-//             method: 'DELETE',
-//             headers: {
-//                 "Content-Type": "application/json",
-//                 'Authorization': `Bearer ${localStorage.getItem("token")}`
-//             }
-//         })
-//         .then((res) =>
-//           res.json().then((data) => ({
-//             status: res.status,
-//             data,
-//           }))
-//         )
-
-//         .then(({ status, data }) => {
-//           if (status === 403) {
-//             notyf.error("You are not allowed to delete this post.");
-
-//           } else if (status === 404) {
-//             notyf.error("Post not found.");
-
-//           } else if (status === 500) {
-//             notyf.error("Server error occurred.");
-
-//           } else if (status === 200) {
-//             notyf.success("Blog Post Deleted");
-//             setTimeout(() => notyf.dismissAll(), 800);
-//             fetchData();
-            
-//           } else {
-//             notyf.error("Unexpected response from server.");
-//           }
-//         })
-//         .catch((err) => {
-//           console.error("Error deleting post:", err);
-//           notyf.error("Network or server error. Please try again later.");
-//         });
-//     }
-
-
-
-
-// return (
-//   <Card className="mt-3">
-//     <Card.Body>
-//       {/* Title and Fields */}
-//       {isEditing ? (
-//         <>
-//           <Form.Group className="mb-2">
-//             <Form.Label>Post Title</Form.Label>
-//             <Form.Control
-//               type="text"
-//               value={updatedTitle}
-//               onChange={(e) => setupdatedTitle(e.target.value)}
-//             />
-//           </Form.Group>
-
-//           <Form.Group className="mb-2">
-//             <Form.Label>Content</Form.Label>
-//             <Form.Control
-//               type="string"
-//               value={updatedContent}
-//               onChange={(e) => setupdatedContent(e.target.value)}
-//             />
-//           </Form.Group>
-//         </>
-//       ) : (
-//         <>
-//           <Card.Title>Post Title:</Card.Title>
-//           <Card.Text>{updatedTitle}</Card.Text>
-//           <Card.Subtitle>Content:</Card.Subtitle>
-//           <Card.Text>{updatedContent}</Card.Text>
-//           <Card.Subtitle>Author:</Card.Subtitle>
-//           <Card.Text>{author}</Card.Text>
-//           <Card.Subtitle>Creation Date:</Card.Subtitle>
-//           <Card.Text>{creationDate}</Card.Text>
-//           <Card.Subtitle>Comments:</Card.Subtitle>
-//           <Card.Text>{comments.comment}</Card.Text>
-//         </>
-//       )}
-//     </Card.Body>
-
-//     <Card.Footer className="d-flex justify-content-around">
-//       <button
-//         className={`btn btn-${isEditing ? "success" : "primary"} btn-sm`}
-//         onClick={() => {
-//           if (isEditing) {
-//             updatePost(_id); 
-//           }
-//           setIsEditing(!isEditing);
-
-//         }}
-//       >
-//         {isEditing ? "Save" : "Update"}
-//       </button>
-
-//               <button
-//                 className="btn btn-danger btn-sm"
-//                 onClick={() => deletePost(_id)}
-//               >
-//                 Delete
-//               </button>
-//     </Card.Footer>
-//   </Card>
-// )
-// };
-
-
-export default function PostCard({ post, fetchData, updatePost, deletePost }) {
+export default function PostCard({ post, fetchData, updatePost, handleEdit, deletePost }) {
   return (
-    <Card className="mb-3 shadow-sm">
-      <Card.Body>
-        <Card.Title>{post.title}</Card.Title>
-        <Card.Text>{post.content}</Card.Text>
-        <Card.Text>{post.author}</Card.Text>
-        <Card.Text>{new Date(post.creationDate).toLocaleDateString()}</Card.Text>
-        <Card.Text>{post.comments}</Card.Text>
+    
+    <Container className="mb-4">
+    <div className="row align-items-center shadow-sm p-3 rounded bg-white">
+      <div className="col-lg-6 mb-3 mb-lg-0">
+      <img
+        src="https://placehold.co/600x300/f8e1f4/333?text=No+Image"
+        className="img-fluid rounded"
+        alt="Placeholder"
+        />
+      </div>
 
-        <div className="d-flex justify-content-between">
+      <div className="col-lg-6">
+        <h4>{post.title}</h4>
+        <p className="truncate-text">{post.content}</p>
+
+        <div className="d-flex justify-content-between text-muted small">
+        <p>By: {post.author?.userName || "Unknown"}</p>
+        <p>{new Date(post.creationDate).toLocaleDateString()}</p>
+        </div>
+        
+
+        <p>{post.comments}</p>
+
+        <div className="d-flex gap-2 mt-3">
           <Button
-            variant="primary"
+            variant="link"
             size="sm"
-            onClick={() => updatePost(post._id)} 
+            className="p-0 text-primary text-decoration-underline"
+            onClick={() => handleEdit(post._id)} 
           >
            Update
           </Button>
 
           <Button
-            variant="danger"
+            variant="link"
             size="sm"
+            className="p-0 text-danger text-decoration-underline"
             onClick={() => deletePost(post._id)} 
           >
             Delete
           </Button>
         </div>
-      </Card.Body>
-    </Card>
+      </div>
+      </div>
+    </Container>
   );
 }

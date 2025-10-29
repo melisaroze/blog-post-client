@@ -12,31 +12,45 @@ html, body, #root {
 }
 
 .homepage {
-  background-image: url("./images/bg.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  width: 100%;
-  height: 100vh; /* full viewport height */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: black;
+  background: linear-gradient(135deg, #A0E7E5 0%, #FFB5A7 50%, #EAE4FF 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+  color: #444;
+  padding: 5rem 2rem;
   text-align: center;
+  height: 50vh;
 }
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 
 .navbar {
-  background-color: #e5e3d9;
+  color: #444; 
+  border-bottom: 2px solid #A0E7E5;
 }
 
-.navbar .nav-link {
-  color: black75 !important;
+.nav-link {
+  color: #FFB5A7 !important;
   transition: color 0.3s ease;       
 }
 
 .navbar .nav-link:hover {
   color: #eb9d2a !important;
   text-decoration: underline;
+}
+
+
+.categories {
+  background: linear-gradient(135deg, #A0E7E5 0%, #FFB5A7 50%, #EAE4FF 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+  color: black;
+  padding: 5rem 2rem;
+  text-align: center;
 }
 
 
@@ -69,5 +83,17 @@ html, body, #root {
 .App {
   margin: 0;
   padding: 0;
+  width: 100%;
+}
+
+.truncate-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.submit-button {
   width: 100%;
 }

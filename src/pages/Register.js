@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { Form, Button, Container, Row, Col, Card } from 'react-bootstrap';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { Notyf } from 'notyf'; 
 import UserContext from '../UserContext';
 
@@ -97,6 +97,7 @@ export default function Register() {
 				<Form.Group>
 					<Form.Label>Username:</Form.Label>
 					<Form.Control 
+					className="mb-2"
 					type="username"
 					placeholder="Enter Username" 
 					required 
@@ -106,6 +107,7 @@ export default function Register() {
 				<Form.Group>
 					<Form.Label>Email:</Form.Label>
 					<Form.Control 
+					className="mb-2"
 					type="email"
 					placeholder="Enter Email" 
 					required 
@@ -114,7 +116,8 @@ export default function Register() {
 				</Form.Group>
 				<Form.Group>
 					<Form.Label>Password:</Form.Label>
-					<Form.Control 
+					<Form.Control
+					className="mb-2" 
 					type="password" 
 					placeholder="Enter Password" 
 					required 
@@ -124,6 +127,7 @@ export default function Register() {
 				<Form.Group>
 					<Form.Label>Confirm Password:</Form.Label>
 					<Form.Control 
+					className="mb-2"
 					type="password" 
 					placeholder="Confirm Password"
 					className="mb-3" 
@@ -134,11 +138,22 @@ export default function Register() {
 				{
 					isActive
 
-					? <Button 
+					? <Button
+						className="submit-button"  
 						variant="primary" 
-						type="submit">Submit</Button>
-					: <Button variant="primary" disabled>Submit</Button>
-				}
+						type="submit">Create an account</Button>
+					: <Button 
+						className="submit-button" 
+						variant="primary" 
+						disabled>Create an account</Button>
+				}			 
+
+
+				<p className="mt-4 d-flex justify-content-center gap-1">
+			 	Already have an account?
+			 	<Link to="/login"> Log-in</Link> here
+			 </p>
+
 			 </Form>
 			</Card.Body>
        	</Card>

@@ -57,7 +57,7 @@ function App() {
     <UserProvider value={{user, setUser, unsetUser}}>
       <Router>
         {<AppNavbar />}
-        <Container>
+        <div>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />}/>
@@ -66,7 +66,7 @@ function App() {
             <Route path="/posts" element={<Posts />} />
             <Route path="/addpost" element={<AddPost />} />
           </Routes>
-        </Container>
+        </div>
       </Router>
     </UserProvider>
   );

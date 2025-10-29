@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
 import PostCard from '../components/PostCard';
+import Categories from '../components/Categories';
 import UserContext from '../UserContext';
 import { Link } from 'react-router-dom';
 import { Row, Col, Button, Modal, Form, Container, Table } from 'react-bootstrap';
@@ -32,6 +33,7 @@ const fetchData = () => {
 		})
 		.then(res => res.json())
 		.then(data => {
+      console.log("🔥 Frontend fetched data:", data);
 
 		    if (typeof data.message !== "string") {
 		    	setPosts(data.posts);
@@ -48,7 +50,18 @@ const fetchData = () => {
 
     }, []);
 
+
+function handleEdit(post) {
+    console.log("Clicked Edit — post object:", post);
+  setSelectedPost(post);
+  setUpdatedTitle(post.title);
+  setUpdatedContent(post.content);
+  setShowEditModal(true);
+}
+
   function updatePost(id) {
+
+    console.log("Updating post:", id, updatedTitle, updatedContent);
 
     fetch(`https://blog-post-api-alvarez.onrender.com/posts/updatePost/${id}`,{
 
@@ -228,6 +241,8 @@ const fetchData = () => {
 
   return (
     <>
+      <Categories />
+
       {user ? (
         <Container className="mt-5">
           {user.isAdmin ? (
@@ -257,14 +272,14 @@ const fetchData = () => {
                       <tr key={post._id}>
                         <td>{post.title}</td>
                         <td>{post.content}</td>
-                        <td>{post.author}</td>
+                        <td>{post.author.userName}</td>
                         <td>{post.comments}</td>
                         <td>{new Date(post.creationDate).toLocaleDateString()}</td>
                         <td>
                           <Button
                             variant="primary"
                             size="sm"
-                            onClick={() => updatePost(post._id)}
+                            onClick={() => handleEdit(post)}
                           >
                             Edit
                           </Button>{" "}
@@ -304,10 +319,12 @@ const fetchData = () => {
               {Posts.length > 0 ? (
                 <Row className="mt-4">
                   {Posts.map((post) => (
-                    <Col md={3} key={post._id}>
+                    <Col md={12} 
+                    key={post._id}>
                       <PostCard
                         post={post}
                         fetchData={fetchData}
+                        handleEdit={handleEdit}
                         updatePost={updatePost}
                         deletePost={deletePost}
                       />

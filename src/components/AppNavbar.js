@@ -13,7 +13,7 @@ export default function AppNavbar() {
 	return(
 		<Navbar variant="light" expand="lg" className="shadow-sm py-3 navbar">
 			<Container fluid>
-			    <Navbar.Brand as={Link} to="/">Blog Post Management</Navbar.Brand>
+			    <Navbar.Brand as={Link} to="/">Special Journey</Navbar.Brand>
 			    <Navbar.Toggle aria-controls="basic-navbar-nav" />
 			    <Navbar.Collapse id="basic-navbar-nav">
 				    <Nav className="ms-auto d-flex align-items-center gap-2">
@@ -29,7 +29,7 @@ export default function AppNavbar() {
                                     <Nav.Link 
                                     as={NavLink} 
                                     to="/posts"
-                                     exact="true">Posts</Nav.Link>
+                                     exact="true">Blogs</Nav.Link>
 									<Nav.Link 
 									as={Link} 
 									to="/logout">Logout
