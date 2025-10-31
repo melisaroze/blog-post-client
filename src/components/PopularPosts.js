@@ -27,30 +27,23 @@ export default function LatestPosts() {
   }, []);
 
   return (
-    <div className="container mt-5">
-      <h2 className="mb-4 text-start">Latest Blog Posts</h2>
+    <div className="container">
+      <h4 className="mb-4 text-start">Popular Blog Posts</h4>
       <Row>
         {posts.length > 0 ? (
           posts.map((post) => (
-            <Col md={4} className="mb-4" key={post._id}>
-              <Card 
-                className="h-100 shadow-sm border-0"       
-                style={{ cursor: "pointer" }}
-                onClick={() => navigate(`/posts/${post._id}`)}>
+            <Col md={12} className="mb-4" key={post._id}>
+              <Card className="h-100 shadow-sm border-0"       
+              	style={{ cursor: "pointer" }}
+     			onClick={() => navigate(`/posts/${post._id}`)}>
                 <Card.Body>
 
                       <img
                         src="https://placehold.co/600x300/f8e1f4/333?text=No+Image"
-                        className="img-fluid rounded"
+                        className="img-fluid rounded mb-2"
                         alt="Placeholder"
                         />
-                    <small className="text-muted">
-                        {new Date(post.creationDate).toLocaleDateString('en-US', {
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric'
-                            })}
-                    </small>
+
                   <Card.Title>{post.title}</Card.Title>
 
                   <Card.Text>
@@ -60,10 +53,19 @@ export default function LatestPosts() {
                   </Card.Text>
                 </Card.Body>
 
-                <Card.Footer className="bg-transparent border-0 text-start">
+                <Card.Footer className="bg-transparent border-0 d-flex justify-content-between">
                   <Card.Subtitle className="text-muted mb-2"> 
                    By {post.author?.userName || "Unknown Author"}
                   </Card.Subtitle>
+
+                    <Card.Subtitle className="text-muted">
+                        {new Date(post.creationDate).toLocaleDateString('en-US', {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric'
+                            })}
+                   </Card.Subtitle>
+
                 </Card.Footer>
 
               </Card>

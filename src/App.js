@@ -9,6 +9,7 @@ import Logout from './pages/Logout';
 import Register from './pages/Register';
 import Posts from './pages/Posts';
 import AddPost from './pages/AddPost';
+import SinglePost from './pages/SinglePost';
 import UserProvider from './UserContext'
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
             <Route path="/logout" element={<Logout />} />
             <Route path="/posts" element={<Posts />} />
             <Route path="/addpost" element={<AddPost />} />
+            <Route path="/posts/:id" element={<SinglePost />} />
           </Routes>
         </div>
       </Router>

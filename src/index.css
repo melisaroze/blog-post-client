@@ -114,3 +114,12 @@ html, body, #root {
 .submit-button {
   width: 100%;
 }
+
+.post-card {
+  cursor: pointer;        /* shows hand cursor */
+  transition: transform 0.2s ease;
+}
+
+.post-card:hover {
+  transform: scale(1.02); /* subtle hover effect */
+}
