@@ -4,6 +4,7 @@ import { Row, Col, Button, Modal, Form, Container, Table } from 'react-bootstrap
 import PostCard from '../components/PostCard';
 import Categories from '../components/Categories';
 import PopularPosts from '../components/PopularPosts'
+import PostCounts from '../components/PostCounts'
 import UserContext from '../UserContext';
 import AddPost from './AddPost';
 import { Notyf } from 'notyf'; 
@@ -344,6 +345,7 @@ function handleEdit(post) {
                   {/* ✅ RIGHT COLUMN - SIDEBAR */}
                   <Col lg={4}>
                         <PopularPosts />
+                        <PostCounts />
                   </Col>
                 </Row>
               </>
@@ -380,6 +382,7 @@ function handleEdit(post) {
               <Col lg={4}>
                 <div className="bg-light rounded">
                   <PopularPosts />
+                  <PostCounts />
                   
                 </div>
               </Col>

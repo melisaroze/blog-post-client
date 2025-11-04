@@ -116,10 +116,16 @@ html, body, #root {
 }
 
 .post-card {
-  cursor: pointer;        /* shows hand cursor */
+  cursor: pointer;       
   transition: transform 0.2s ease;
 }
 
 .post-card:hover {
-  transform: scale(1.02); /* subtle hover effect */
+  transform: scale(1.02); 
+}
+
+.post-table {
+  border-radius: 15px;
+  overflow: hidden; 
+  background-color: white;
 }
