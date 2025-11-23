@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import LatestPosts from '../components/LatestPosts'
 
 
+
 export default function Home() {
 
 
@@ -17,12 +18,6 @@ return (
         </div>
 
        <LatestPosts />
-
-    <footer className="bg-dark text-white text-center py-3 mt-5">
-      <p className="mb-0">
-        © {new Date().getFullYear()} Special Journey. All rights reserved.
-      </p>
-    </footer>
     </>
     )
 }

@@ -30,6 +30,15 @@ export default function AppNavbar() {
                                     as={NavLink} 
                                     to="/posts"
                                      exact="true">Blogs</Nav.Link>
+                                    <Nav.Link 
+									as={Link} 
+									to="/addpost">Add Post</Nav.Link>
+									<Nav.Link 
+									as={Link} 
+									to="/myposts">My Posts</Nav.Link>
+									<Nav.Link 
+									as={Link} 
+									to="/profile">Profile</Nav.Link>
 									<Nav.Link 
 									as={Link} 
 									to="/logout">Logout

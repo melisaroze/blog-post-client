@@ -21,7 +21,7 @@ export default function PostCounts() {
 
   return (
     <div className="container">
-      <h4 className="mb-4 text-start">Authors</h4>
+      <h4 className="mb-2 text-start">Authors</h4>
 
       {authors.length > 0 ? (
         <Table bordered hover responsive className="shadow-sm post-table text-center">

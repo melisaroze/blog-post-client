@@ -22,11 +22,14 @@ export default function PostCard({ post, fetchData, updatePost, handleEdit, dele
 
     <div className="row align-items-center shadow-sm p-3 rounded bg-white">
       <div className="col-lg-6 mb-3 mb-lg-0">
-      <img
-        src="https://placehold.co/600x300/f8e1f4/333?text=No+Image"
-        className="img-fluid rounded"
-        alt="Placeholder"
+      {post.image && (
+        <Card.Img 
+          variant="top" 
+          src={post.image} 
+          alt={post.title} 
+          style={{ height: "180px", objectFit: "cover" }} 
         />
+      )}
       </div>
 
       <div className="col-lg-6">

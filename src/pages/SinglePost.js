@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Card } from "react-bootstrap";
+import RelatedPosts from '../components/RelatedPosts';
 
 export default function SinglePostPage() {
   const { id } = useParams(); // 👈 get post ID from URL
@@ -15,7 +16,8 @@ export default function SinglePostPage() {
 
   if (!post) return <p>Loading...</p>;
 
-  return (
+return (
+  <>
     <Container className="mt-4">
       <h2>{post.title}</h2>
       <p className="text-muted">
@@ -26,12 +28,23 @@ export default function SinglePostPage() {
                               day: 'numeric'
                             })}
       </p>
-      <img
-        src="https://placehold.co/800x400/f8e1f4/333?text=No+Image"
-        className="img-fluid rounded mb-3"
-        alt="Post cover"
-      />
+      <div className="d-flex justify-content-center">
+      {post.image && (
+        <Card.Img 
+          variant="top"
+          className="my-4" 
+          src={post.image} 
+          alt={post.title} 
+          style={{ height: "auto", width: "300px", objectFit: "cover" }} 
+        />
+      )}
+      </div>
       <p>{post.content}</p>
     </Container>
+
+    <Container>
+    <RelatedPosts currentPost={post}/>
+    </Container>
+  </>
   );
 }

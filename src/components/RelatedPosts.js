@@ -2,33 +2,47 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Button, Row, Col } from "react-bootstrap";
 
-export default function LatestPosts({}) {
+export default function RelatedPosts({currentPost}) {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
 
-  const fetchLatestPosts = () => {
+   useEffect(() => {
+    if (!currentPost) return;
+
     fetch("https://blog-post-api-alvarez.onrender.com/posts/getPosts")
       .then((res) => res.json())
       .then((data) => {
+        if (!data.posts) return;
 
-        if (data.posts && Array.isArray(data.posts)) {
-          // Sort by newest creationDate and take top 3
-          const sorted = [...data.posts].sort(
-            (a, b) => new Date(b.creationDate) - new Date(a.creationDate)
-          );
-          setPosts(sorted.slice(0, 3));
-        }
+        // Exclude current post
+        const filtered = data.posts.filter(post => post._id !== currentPost._id);
+
+        // Split current post content into keywords safely
+        const keywords = currentPost.content
+          ? currentPost.content.toLowerCase().split(" ")
+          : [];
+
+        // Filter posts where content includes any keyword
+        const related = filtered.filter(post =>
+          post.content &&
+          keywords.some(kw => post.content.toLowerCase().includes(kw))
+        );
+
+        // Sort by newest first
+        const sorted = related.sort(
+          (a, b) => new Date(b.creationDate) - new Date(a.creationDate)
+        );
+
+        // Take top 3 related posts
+        setPosts(sorted.slice(0, 3));
       })
-      .catch((err) => console.error("Error fetching posts:", err));
-  };
+      .catch(err => console.error("Error fetching related posts:", err));
+  }, [currentPost]);
 
-  useEffect(() => {
-    fetchLatestPosts();
-  }, []);
-
+  if (posts.length === 0) return null; // no related posts
   return (
     <div className="container mt-5">
-      <h2 className="mb-4 text-start">Latest Blog Posts</h2>
+      <h4 className="mb-4 text-start">Related Posts</h4>
       <Row>
         {posts.length > 0 ? (
           posts.map((post) => (

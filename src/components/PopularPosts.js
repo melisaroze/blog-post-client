@@ -32,17 +32,21 @@ export default function LatestPosts() {
       <Row>
         {posts.length > 0 ? (
           posts.map((post) => (
-            <Col md={12} className="mb-4" key={post._id}>
-              <Card className="h-100 shadow-sm border-0"       
+            <Col md={12} className="mb-3" key={post._id}>
+              <Card className="h-80 shadow-sm border-0"       
               	style={{ cursor: "pointer" }}
      			onClick={() => navigate(`/posts/${post._id}`)}>
                 <Card.Body>
 
-                      <img
-                        src="https://placehold.co/600x300/f8e1f4/333?text=No+Image"
-                        className="img-fluid rounded mb-2"
-                        alt="Placeholder"
-                        />
+                {post.image && (
+                  <Card.Img 
+                    variant="top" 
+                    className="mb-3"
+                    src={post.image} 
+                    alt={post.title} 
+                    style={{ height: "180px", objectFit: "cover" }} 
+                  />
+                )}
 
                   <Card.Title>{post.title}</Card.Title>
 

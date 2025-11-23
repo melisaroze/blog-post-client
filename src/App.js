@@ -3,6 +3,7 @@ import { Container } from 'react-bootstrap';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Route, Routes } from 'react-router-dom';
 import AppNavbar from './components/AppNavbar';
+import Footer from './components/Footer'
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
@@ -10,6 +11,7 @@ import Register from './pages/Register';
 import Posts from './pages/Posts';
 import AddPost from './pages/AddPost';
 import SinglePost from './pages/SinglePost';
+import Profile from './pages/Profile';
 import UserProvider from './UserContext'
 
 function App() {
@@ -67,8 +69,10 @@ function App() {
             <Route path="/posts" element={<Posts />} />
             <Route path="/addpost" element={<AddPost />} />
             <Route path="/posts/:id" element={<SinglePost />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </div>
+        {<Footer />}
       </Router>
     </UserProvider>
   );

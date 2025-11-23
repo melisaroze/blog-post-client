@@ -1,12 +1,11 @@
 import { useEffect, useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { Row, Col, Button, Modal, Form, Container, Table } from 'react-bootstrap';
 import PostCard from '../components/PostCard';
 import Categories from '../components/Categories';
 import PopularPosts from '../components/PopularPosts'
 import PostCounts from '../components/PostCounts'
 import UserContext from '../UserContext';
-import AddPost from './AddPost';
 import { Notyf } from 'notyf'; 
 
 const notyf = new Notyf();
@@ -15,7 +14,8 @@ const notyf = new Notyf();
 export default function Posts ({post}) {
 
 const { user } = useContext(UserContext); 
-const [Posts, setPosts] = useState([]);
+const navigate = useNavigate();
+const [posts, setPosts] = useState([]);
 const [showModal, setShowModal] = useState(false);
 const [showEditModal, setShowEditModal] = useState(false);
 const [selectedPost, setSelectedPost] = useState(null);
@@ -23,10 +23,10 @@ const [updatedTitle, setUpdatedTitle] = useState("");
 const [updatedContent, setUpdatedContent] = useState("");
 const [comment, setComment] = useState("");
 const [comments, setComments] = useState("");
-
+const [currentPage, setCurrentPage] = useState(1);
+const postsPerPage = 5; // you can change this
 
 const fetchData = () => {
-
 
 		fetch('https://blog-post-api-alvarez.onrender.com/posts/getPosts', {
 			headers: {
@@ -37,8 +37,13 @@ const fetchData = () => {
 		.then(data => {
       console.log("🔥 Frontend fetched data:", data);
 
-		    if (typeof data.message !== "string") {
-		    	setPosts(data.posts);
+		    if (Array.isArray(data.posts)) {
+        
+        const sortedPosts = data.posts.sort(
+          (a, b) => new Date(b.creationDate) - new Date(a.creationDate)
+        );
+
+        setPosts(sortedPosts);
 		    } else {
 		    	setPosts([]);
 		    }
@@ -51,6 +56,13 @@ const fetchData = () => {
 		fetchData()
 
     }, []);
+
+
+const indexOfLastPost = currentPage * postsPerPage;
+const indexOfFirstPost = indexOfLastPost - postsPerPage;
+const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
 
 function handleEdit(post) {
@@ -142,6 +154,7 @@ function handleEdit(post) {
             notyf.success("Blog Post Deleted");
             setTimeout(() => notyf.dismissAll(), 800);
             fetchData();
+            navigate("/posts");
             
           } else {
             notyf.error("Unexpected response from server.");
@@ -255,7 +268,7 @@ function handleEdit(post) {
                   <h1 className="text-center flex-grow-1">Admin Dashboard</h1>
                 </div>
 
-                {Posts.length > 0 ? (
+                {posts.length > 0 ? (
                   <Table striped bordered hover responsive>
                     <thead>
                       <tr>
@@ -268,7 +281,7 @@ function handleEdit(post) {
                       </tr>
                     </thead>
                     <tbody>
-                      {Posts.map((post) => (
+                      {posts.map((post) => (
                         <tr key={post._id}>
                           <td>{post.title}</td>
                           <td>{post.content}</td>
@@ -307,25 +320,18 @@ function handleEdit(post) {
             ) : (
               // ✅ USER VIEW (CARDS)
               <>
-                <div className="d-flex justify-content-between align-items-center ">
-              
-{/*                   {user && (
-                    <Button variant="success" onClick={() => setShowModal(true)}>
-                      + Add Blog Post
-                    </Button>
-                  )}*/}
-                </div>
 
                 <Row className="mt-4">
 
 
                   {/* ✅ LEFT COLUMN - POSTS */}
                   <Col lg={8}>
-                  <h4 className="text-start flex-grow-1">Latest Blog Posts</h4>
+                  <h4 className="text-start flex-grow-1 mb-4">Latest Blog Posts</h4>
 
-                    {Posts.length > 0 ? (
+                    {posts.length > 0 ? (
+                    <>
                       <Row>
-                        {Posts.map((post) => (
+                        {currentPosts.map((post) => (
                           <Col md={12} key={post._id}>
                             <PostCard
                               post={post}
@@ -337,6 +343,19 @@ function handleEdit(post) {
                           </Col>
                         ))}
                       </Row>
+                  
+                        <div className="d-flex justify-content-center mt-4">
+                        {Array.from({ length: Math.ceil(posts.length / postsPerPage) }).map((_, index) => (
+                         <button
+                           key={index}
+                           className={`btn btn-m mx-1 ${currentPage === index + 1 ? "pagination-btn btn-outline-dark" : "btn-outline-dark"}`}
+                              onClick={() => paginate(index + 1)}>
+                            {index + 1}
+                          </button>
+                            ))}
+                          </div>
+                    </>
+                
                     ) : (
                       <h4 className="text-center mt-5">No Blog Posts Yet</h4>
                     )}
@@ -360,9 +379,9 @@ function handleEdit(post) {
 
             <Row className="mt-4">
               <Col lg={8}>
-                {Posts.length > 0 ? (
+                {posts.length > 0 ? (
                   <Row>
-                    {Posts.map((post) => (
+                    {posts.map((post) => (
                       <Col md={12} key={post._id}>
                         <PostCard
                           post={post}
@@ -390,21 +409,6 @@ function handleEdit(post) {
           </>
         )}
       </Container>
-
-      {/* 🧩 Add Post Modal */}
-      <Modal show={showModal} onHide={() => setShowModal(false)} centered size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>Add Blog Post</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <AddPost
-            onSuccess={() => {
-              setShowModal(false);
-              fetchData();
-            }}
-          />
-        </Modal.Body>
-      </Modal>
 
       {/* 🧩 Edit Post Modal */}
       <Modal show={showEditModal} onHide={() => setShowEditModal(false)} centered>

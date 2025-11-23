@@ -79,7 +79,7 @@ html, body, #root {
 }
 
 .cta {
-  background-color: #eb9d2a; /* golden-orange */
+  background-color: #d0f3f2;
   color: #111;
   font-weight: 700;
   border: 1px solid #8a5e10;
@@ -87,14 +87,15 @@ html, body, #root {
   padding: 10px 24px;
   font-size: 1rem;
   cursor: pointer;
-  box-shadow: 0 4px 0 #8a5e10; /* shadow below */
+  box-shadow: 0 4px 0 #2a3d3c; /* shadow below */
   transition: all 0.2s ease;
 }
 
 .cta:hover {
-  background-color: #c9891c; /* lighter shade on hover */
+  background-color: #A0E7E5; /* lighter shade on hover */
   transform: translateY(-3px); /* move UP slightly */
-  box-shadow: 0 6px 0 #8a5e10; /* deeper shadow while lifted */
+  border: 1px solid #8a5e10;
+  box-shadow: 0 6px 0 #2a3d3c; /* deeper shadow while lifted */
 }
 
 .App {
@@ -120,12 +121,16 @@ html, body, #root {
   transition: transform 0.2s ease;
 }
 
-.post-card:hover {
+/*.post-card:hover {
   transform: scale(1.02); 
-}
+}*/
 
 .post-table {
   border-radius: 15px;
   overflow: hidden; 
   background-color: white;
+}
+
+.pagination-btn {
+  background: #FFB5A7;
 }
