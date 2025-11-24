@@ -32,14 +32,14 @@ return (
       {post.image && (
         <Card.Img 
           variant="top"
-          className="my-4" 
+          className="my-4 blog-image" 
           src={post.image} 
           alt={post.title} 
           style={{ height: "auto", width: "300px", objectFit: "cover" }} 
         />
       )}
       </div>
-      <p>{post.content}</p>
+      <p className="post-spacing">{post.content}</p>
     </Container>
 
     <Container>

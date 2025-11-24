@@ -73,9 +73,8 @@ function handleEdit(post) {
   setShowEditModal(true);
 }
 
-  function updatePost(id) {
-
-    console.log("Updating post:", id, updatedTitle, updatedContent);
+function updatePost(id) {
+  console.log("Updating post:", id, updatedTitle, updatedContent);
 
     fetch(`https://blog-post-api-alvarez.onrender.com/posts/updatePost/${id}`,{
 

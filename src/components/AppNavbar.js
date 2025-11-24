@@ -22,7 +22,7 @@ export default function AppNavbar() {
 				        to="/" 
 				        exact="true">Home
 				        </Nav.Link>
-				        {(user.id !== null) 
+				        {(user.id && user.isAdmin !== null) 
                         
                             ? 
 								<>

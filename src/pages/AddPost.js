@@ -1,5 +1,5 @@
 import {useState, useEffect, useContext} from 'react';
-import {Form, Button, Container} from 'react-bootstrap';
+import {Form, Button, Container, Spinner} from 'react-bootstrap';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { Notyf } from 'notyf'; 
 import UserContext from '../UserContext';
@@ -12,25 +12,40 @@ const navigate = useNavigate();
 
 const {user} = useContext(UserContext);
 
-const [image, setImage] = useState(null);
 const [title , setTitle] = useState("");
 const [content, setContent] = useState("");
+const [image, setImage] = useState(null);
+const [isUploading, setIsUploading] = useState(false);
+
 
 const handleFileUpload = async (e) => {
-	const file = e.target.files[0];
-	const formData = new FormData();
-	formData.append("image", file);
+    const file = e.target.files[0];
+    if (!file) return;
 
-	const res = await fetch("https://blog-post-api-alvarez.onrender.com/upload/image", {
-	      method: "POST",
-	      body: formData,
-	    });
+    setIsUploading(true); // start animation
 
-	    const data = await res.json();
-	    console.log("Uploaded:", data.imageUrl);
+    const formData = new FormData();
+    formData.append("image", file);
 
-	    setImage(data.imageUrl); // store Cloudinary URL
-	  };
+    try {
+      const res = await fetch(
+        "https://blog-post-api-alvarez.onrender.com/upload/image",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const data = await res.json();
+      console.log("Uploaded:", data.imageUrl);
+
+      setImage(data.imageUrl); // store Cloudinary URL
+    } catch (error) {
+      console.error("Upload failed:", error);
+    } finally {
+      setIsUploading(false); // stop animation
+    }
+  };
 
 	function createPost(e){
 
@@ -80,48 +95,58 @@ const handleFileUpload = async (e) => {
         }
 	}
 
-	return (
+return user.id ? (
+  <Container>
+    <h1 className="my-5 text-center">Add Blog Post</h1>
 
-            (user.id)
-            ?
-            <>
-            <Container>
-                <h1 className="my-5 text-center">Add Blog Post</h1>
+    <input type="file" onChange={handleFileUpload} className="mb-2" />
 
-                <input type="file" onChange={handleFileUpload} className="mb-2"/>
+    {/* Upload animation */}
+    {isUploading && (
+      <div className="my-3 text-center">
+        <Spinner animation="border" role="status" />
+        <p>Uploading...</p>
+      </div>
+    )}
 
-                <div className="my-3 d-flex justify-content-center">
-                {image && <img src={image} alt="preview" height="200" width="300" />}
-                </div>
+    {/* Show uploaded image */}
+    {image && !isUploading && (
+      <div className="text-center my-3">
+        <img src={image} alt="Uploaded" style={{ maxWidth: "300px" }} />
+      </div>
+    )}
 
-                <Form onSubmit={e => createPost(e)}>
-                    <Form.Group>
-                        <Form.Label>Title:</Form.Label>
-                        <Form.Control 
-                        	type="text" 
-                        	placeholder="Enter Title"
-                        	className="mb-2" 
-                        	required value={title} onChange={e => {setTitle(e.target.value)}}/>
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Content:</Form.Label>
-                        <Form.Control 
-                        	as="textarea" 
-                        	placeholder="Enter Content"
-                        	style={{ height: "150px" }} 
-                        	rows={5} 
-                        	onChange={e => {setContent(e.target.value)}}
-                        	/>
-                    </Form.Group>
+    <Form onSubmit={(e) => createPost(e)}>
+      <Form.Group>
+        <Form.Label>Title:</Form.Label>
+        <Form.Control
+          type="text"
+          placeholder="Enter Title"
+          className="mb-2"
+          required
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+      </Form.Group>
 
-                    <Button variant="primary" type="submit" className="my-5">Submit</Button>
-                </Form>
-            </Container>
-		    </>
-            :
-            <Navigate to="/posts" />
+      <Form.Group>
+        <Form.Label>Content:</Form.Label>
+        <Form.Control
+          as="textarea"
+          placeholder="Enter Content"
+          style={{ height: "150px" }}
+          rows={5}
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
+      </Form.Group>
 
-	)
-
-
-}
+      <Button variant="primary" type="submit" className="my-5">
+        Submit
+      </Button>
+    </Form>
+  </Container>
+) : (
+  <Navigate to="/posts" />
+);
+};
