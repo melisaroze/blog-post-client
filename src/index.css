@@ -79,7 +79,7 @@ html, body, #root {
 }
 
 .cta {
-  background-color: #d0f3f2;
+  background-color: #FFFFff;
   color: #111;
   font-weight: 700;
   border: 1px solid #8a5e10;
@@ -92,7 +92,7 @@ html, body, #root {
 }
 
 .cta:hover {
-  background-color: #A0E7E5; /* lighter shade on hover */
+  background-color: #ffffff; /* lighter shade on hover */
   transform: translateY(-3px); /* move UP slightly */
   border: 1px solid #8a5e10;
   box-shadow: 0 6px 0 #2a3d3c; /* deeper shadow while lifted */
