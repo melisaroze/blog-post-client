@@ -8,33 +8,37 @@ html, body, #root {
   margin: 0;
   padding: 0;
   overflow-x: hidden; /* prevents horizontal scroll */
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .homepage {
-  background: linear-gradient(135deg, #A0E7E5 0%, #FFB5A7 50%, #EAE4FF 100%);
-  background-size: 200% 200%;
-  animation: gradientShift 8s ease infinite;
-  color: #444;
-  padding: 5rem 2rem;
+  background-image: url('/image/bagg.jpg');
+  color: #000000;
+  background-repeat: no-repeat;
+  background-size: cover; 
+  background-position: top; 
+  padding: 5rem 4rem;
   text-align: center;
   height: 50vh;
+
 }
 
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+.border-home {
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);  /* semi-transparent */
+  backdrop-filter: blur(2px);  
+  border-width: 20px; 
 }
 
 
 .navbar {
   color: #444; 
-  border-bottom: 2px solid #A0E7E5;
+  border-bottom: 2px solid #d46f6a;
 }
 
 .nav-link {
-  color: #FFB5A7 !important;
+  color: #d46f6a !important;
   transition: color 0.3s ease;       
 }
 
@@ -79,8 +83,7 @@ html, body, #root {
 }
 
 .cta {
-  background-color: #FFFFff;
-  color: #111;
+  background-color: #d46f6a;
   font-weight: 700;
   border: 1px solid #8a5e10;
   border-radius: 8px;
@@ -92,7 +95,7 @@ html, body, #root {
 }
 
 .cta:hover {
-  background-color: #ffffff; /* lighter shade on hover */
+  background-color: #d46f6a; /* lighter shade on hover */
   transform: translateY(-3px); /* move UP slightly */
   border: 1px solid #8a5e10;
   box-shadow: 0 6px 0 #2a3d3c; /* deeper shadow while lifted */

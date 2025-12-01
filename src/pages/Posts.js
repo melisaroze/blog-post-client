@@ -255,7 +255,6 @@ function updatePost(id) {
 
   return (
     <>
-      <Categories />
 
       <Container className="mt-5">
         {user ? (

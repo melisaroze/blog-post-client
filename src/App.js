@@ -11,6 +11,7 @@ import Register from './pages/Register';
 import Posts from './pages/Posts';
 import AddPost from './pages/AddPost';
 import SinglePost from './pages/SinglePost';
+import MyPosts from './pages/MyPosts';
 import Profile from './pages/Profile';
 import UserProvider from './UserContext'
 
@@ -69,6 +70,7 @@ function App() {
             <Route path="/posts" element={<Posts />} />
             <Route path="/addpost" element={<AddPost />} />
             <Route path="/posts/:id" element={<SinglePost />} />
+            <Route path="/myposts" element={<MyPosts />} />
             <Route path="/profile" element={<Profile />} />
           </Routes>
         </div>

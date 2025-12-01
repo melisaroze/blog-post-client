@@ -48,9 +48,9 @@ const navigate = useNavigate();
 
 			 navigate("/");
 		
-		} else if(data.message === "Incorrect email or password") {
+		} else if (data.message === "Email and password do not match") {
 
-			notyf.error("Incorrect Credentials. Try again.")
+			notyf.error("Email and password do not match")
 
 		} else {
 			notyf.error('User Not Found. Try Again.');
@@ -89,7 +89,7 @@ const navigate = useNavigate();
         // Validation to enable submit button when all fields are populated and both passwords match
         if(email !== '' && password !== ''){
             setIsActive(true);
-        }else{
+        } else {
             setIsActive(false);
         }
 
@@ -125,7 +125,7 @@ const navigate = useNavigate();
 	            <Form.Group controlId="password">
 	                <Form.Label>Password</Form.Label>
 	                <Form.Control 
-	        	        className="mb-2"
+	        	        className="mb-4"
 	                    type="password" 
 	                    placeholder="Password"
 	                    value={password}

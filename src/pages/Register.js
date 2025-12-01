@@ -56,6 +56,10 @@ export default function Register() {
 
 			notyf.success('Registration Successful'); 
 
+		} else if (data.error === "Password must be atleast 8 characters") {
+
+			notyf.error("Password must be atleast 8 characters")
+
 		} else {
 			
 			notyf.error('Registration Failed.'); 
