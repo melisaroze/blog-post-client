@@ -133,8 +133,7 @@ export default function Register() {
 					<Form.Control 
 					className="mb-2"
 					type="password" 
-					placeholder="Confirm Password"
-					className="mb-3" 
+					placeholder="Confirm Password" 
 					required 
 					value={confirmPassword} 
 					onChange={e => {setConfirmPassword(e.target.value)}}/>
