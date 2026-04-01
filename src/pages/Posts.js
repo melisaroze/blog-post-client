@@ -163,52 +163,6 @@ function updatePost(id) {
         });
     }
 
-    function addComment(postId, commentId) {
-
-            fetch(`https://blog-post-api-alvarez.onrender.com/posts/addComment/${postId}`,{
-
-            method: 'PATCH',
-            headers: {
-                "Content-Type": "application/json",
-                'Authorization': `Bearer ${localStorage.getItem("token")}`
-            }, 
-              body: JSON.stringify({
-                comment: comments
-            })
-        })
-        .then((res) =>
-          res.json().then((data) => ({
-            status: res.status,
-            data,
-          }))
-        )
-
-        .then(({ status, data }) => {
-          if (status === 403) {
-            notyf.error("You are not allowed to delete this post.");
-
-          } else if (status === 404) {
-            notyf.error("Post not found.");
-
-          } else if (status === 500) {
-            notyf.error("Server error occurred.");
-
-          } else if (status === 200) {
-            notyf.success("Blog Post Deleted");
-            setTimeout(() => notyf.dismissAll(), 800);
-            fetchData();
-            
-          } else {
-            notyf.error("Unexpected response from server.");
-          }
-        })
-        .catch((err) => {
-          console.error("Error deleting post:", err);
-          notyf.error("Network or server error. Please try again later.");
-        });
-    }
-
-
         function deleteComment(postId, commentId) {
 
             fetch(`https://blog-post-api-alvarez.onrender.com/posts/deleteComment/${postId}/${commentId}`,{
