@@ -8,7 +8,7 @@ import RelatedPosts from '../components/RelatedPosts';
 
 const notyf = new Notyf();
 
-export default function SinglePostPage({fetchData, likePost}) {
+export default function SinglePostPage({fetchData}) {
 
   const [comment, setComment] = useState("");
   const [editingCommentId, setEditingCommentId] = useState(null);
@@ -203,7 +203,6 @@ return (
 
   {post.comments?.length > 0 ? (
     post.comments.map((c) => {
-      const userId = user?.id;
       const isOwner = 
           typeof c.user === "object"
             ? c.user._id === user.id || c.user._id === user._id

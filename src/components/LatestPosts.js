@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, Button, Row, Col } from "react-bootstrap";
+import { Card, Row, Col } from "react-bootstrap";
 
-export default function LatestPosts({}) {
+export default function LatestPosts() {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
 
