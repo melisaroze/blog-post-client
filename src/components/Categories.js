@@ -1,14 +1,9 @@
-import { useState, useContext, useEffect } from 'react';
-import { Container, Row, Col, Form, Card } from "react-bootstrap";
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
+import { useState } from 'react';
+import { Container, Form} from "react-bootstrap";
 import { Link} from 'react-router-dom';
-import UserContext from '../UserContext';
 
 export default function Categories() {
 
-	const { user } = useContext(UserContext);
-	const [posts, setPosts] = useState([]);
 	const [keyword, setKeyword] = useState("");
 
 return (

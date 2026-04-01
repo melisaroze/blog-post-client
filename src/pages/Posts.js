@@ -1,8 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Row, Col, Button, Modal, Form, Container, Table } from 'react-bootstrap';
 import PostCard from '../components/PostCard';
-import Categories from '../components/Categories';
 import PopularPosts from '../components/PopularPosts'
 import PostCounts from '../components/PostCounts'
 import UserContext from '../UserContext';
@@ -16,7 +15,6 @@ export default function Posts ({post}) {
 const { user } = useContext(UserContext); 
 const navigate = useNavigate();
 const [posts, setPosts] = useState([]);
-const [showModal, setShowModal] = useState(false);
 const [showEditModal, setShowEditModal] = useState(false);
 const [selectedPost, setSelectedPost] = useState(null);
 const [updatedTitle, setUpdatedTitle] = useState("");
