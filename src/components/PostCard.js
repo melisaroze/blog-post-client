@@ -1,16 +1,13 @@
 import { useState, useContext } from 'react';
-import { Card, Form, ListGroup, Container, Button, Modal } from 'react-bootstrap';
+import { Card, Form, Container, Button, Modal } from 'react-bootstrap';
 import UserContext from '../UserContext';
 import { useNavigate } from "react-router-dom";
-import { Notyf } from 'notyf'; 
 
-const notyf = new Notyf();
 
 export default function PostCard({ post, fetchData, updatePost, handleEdit, deletePost}) {
 
   const { user } = useContext(UserContext); 
   const navigate = useNavigate();
-  const [showModal, setShowModal] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
   const [updatedTitle, setUpdatedTitle] = useState("");
   const [updatedContent, setUpdatedContent] = useState("");

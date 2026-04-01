@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { Card, Container, Button, ButtonGroup } from 'react-bootstrap';
+import { Card, Container  } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 
 export default function MyPostsPage({ post }) {
 
   const [posts, setPosts] = useState([]);
-  const [error, setError] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
   const postsPerPage = 5;
@@ -41,15 +40,7 @@ export default function MyPostsPage({ post }) {
 
     }, []);
 
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
 
   return (
     <Container className="mt-4">

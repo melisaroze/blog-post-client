@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { Form, Button, Card, Container, Row, Col } from 'react-bootstrap';
-import { Navigate, useNavigate, Link } from 'react-router-dom'; 
+import { useNavigate, Link } from 'react-router-dom'; 
 import { Notyf } from 'notyf'; 
 import UserContext from '../UserContext';
 
@@ -8,7 +8,7 @@ export default function Login() {
 
 const notyf = new Notyf();
 
-const { user, setUser } = useContext(UserContext);
+const { setUser } = useContext(UserContext);
 
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
