@@ -19,8 +19,8 @@ const [showEditModal, setShowEditModal] = useState(false);
 const [selectedPost, setSelectedPost] = useState(null);
 const [updatedTitle, setUpdatedTitle] = useState("");
 const [updatedContent, setUpdatedContent] = useState("");
-const [comment, setComment] = useState("");
-const [comments, setComments] = useState("");
+// const [comment, setComment] = useState("");
+// const [comments, setComments] = useState("");
 const [currentPage, setCurrentPage] = useState(1);
 const postsPerPage = 5; // you can change this
 
