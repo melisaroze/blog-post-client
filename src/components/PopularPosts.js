@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, Button, Row, Col } from "react-bootstrap";
+import { Card, Row, Col } from "react-bootstrap";
 
 export default function LatestPosts() {
   const [posts, setPosts] = useState([]);
@@ -10,13 +10,12 @@ export default function LatestPosts() {
     fetch("https://blog-post-api-alvarez.onrender.com/posts/getPosts")
       .then((res) => res.json())
       .then((data) => {
-
         if (data.posts && Array.isArray(data.posts)) {
-          // Sort by newest creationDate and take top 3
+          // Sort by number of likes (ascending)
           const sorted = [...data.posts].sort(
-            (a, b) => new Date(b.creationDate) - new Date(a.creationDate)
+            (a, b) => (b.likes?.length || 0) - (a.likes?.length || 0)
           );
-          setPosts(sorted.slice(0, 3));
+          setPosts(sorted.slice(0, 3)); // Take top 3 least to most liked
         }
       })
       .catch((err) => console.error("Error fetching posts:", err));
@@ -33,20 +32,21 @@ export default function LatestPosts() {
         {posts.length > 0 ? (
           posts.map((post) => (
             <Col md={12} className="mb-3" key={post._id}>
-              <Card className="h-80 shadow-sm border-0"       
-              	style={{ cursor: "pointer" }}
-     			onClick={() => navigate(`/posts/${post._id}`)}>
+              <Card
+                className="h-80 shadow-sm border-0"
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate(`/posts/${post._id}`)}
+              >
                 <Card.Body>
-
-                {post.image && (
-                  <Card.Img 
-                    variant="top" 
-                    className="mb-3"
-                    src={post.image} 
-                    alt={post.title} 
-                    style={{ height: "180px", objectFit: "cover" }} 
-                  />
-                )}
+                  {post.image && (
+                    <Card.Img
+                      variant="top"
+                      className="mb-3"
+                      src={post.image}
+                      alt={post.title}
+                      style={{ height: "180px", objectFit: "cover" }}
+                    />
+                  )}
 
                   <Card.Title>{post.title}</Card.Title>
 
@@ -58,20 +58,18 @@ export default function LatestPosts() {
                 </Card.Body>
 
                 <Card.Footer className="bg-transparent border-0 d-flex justify-content-between">
-                  <Card.Subtitle className="text-muted mb-2"> 
-                   By {post.author?.userName || "Unknown Author"}
+                  <Card.Subtitle className="text-muted mb-2">
+                    By {post.author?.userName || "Unknown Author"}
                   </Card.Subtitle>
 
-                    <Card.Subtitle className="text-muted">
-                        {new Date(post.creationDate).toLocaleDateString('en-US', {
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric'
-                            })}
-                   </Card.Subtitle>
-
+                  <Card.Subtitle className="text-muted">
+                    {new Date(post.creationDate).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </Card.Subtitle>
                 </Card.Footer>
-
               </Card>
             </Col>
           ))

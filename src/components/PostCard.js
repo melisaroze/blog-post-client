@@ -6,7 +6,7 @@ import { Notyf } from 'notyf';
 
 const notyf = new Notyf();
 
-export default function PostCard({ post, fetchData, updatePost, handleEdit, deletePost }) {
+export default function PostCard({ post, fetchData, updatePost, handleEdit, deletePost}) {
 
   const { user } = useContext(UserContext); 
   const navigate = useNavigate();
@@ -49,9 +49,25 @@ export default function PostCard({ post, fetchData, updatePost, handleEdit, dele
              day: 'numeric'
             })}</p>
         </div>
-        
 
-        <p>{post.comments}</p>
+        <div className="d-flex justify-content-between align-items-center text-muted small mt-2">
+
+          
+          <div className="d-flex align-items-center gap-1">
+            <span style={{ fontSize: "16px" }}>❤️</span>
+            <span>{post.likes?.length || 0}</span>
+          </div>
+
+         
+          <div className="d-flex align-items-center gap-1">
+            <span style={{ fontSize: "16px" }}>💬</span>
+            <span>{post.comments?.length || 0}</span>
+          </div>
+
+        </div>
+
+
+
 
         { user && user.id === post.author._id && (
         <div className="d-flex gap-2 mt-3">

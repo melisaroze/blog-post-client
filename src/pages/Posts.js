@@ -165,9 +165,9 @@ function updatePost(id) {
         });
     }
 
-    function addComment(id) {
+    function addComment(postId, commentId) {
 
-            fetch(`https://blog-post-api-alvarez.onrender.com/posts/addComment/${id}`,{
+            fetch(`https://blog-post-api-alvarez.onrender.com/posts/addComment/${postId}`,{
 
             method: 'PATCH',
             headers: {
@@ -211,9 +211,9 @@ function updatePost(id) {
     }
 
 
-        function deleteComment(id) {
+        function deleteComment(postId, commentId) {
 
-            fetch(`https://blog-post-api-alvarez.onrender.com/posts/deleteComment/${id}`,{
+            fetch(`https://blog-post-api-alvarez.onrender.com/posts/deleteComment/${postId}/${commentId}`,{
 
             method: 'DELETE',
             headers: {
@@ -284,7 +284,7 @@ function updatePost(id) {
                           <td>{post.title}</td>
                           <td>{post.content}</td>
                           <td>{post.author?.userName || "Unknown"}</td>
-                          <td>{post.comments}</td>
+                          <td>{post.comments?.length || 0}</td>
                           <td>
                             {new Date(post.creationDate).toLocaleDateString("en-US", {
                               year: "numeric",
