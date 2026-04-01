@@ -96,9 +96,6 @@ const navigate = useNavigate();
     }, [email, password]);
 
     return (
-    	// (user.id !== null) ?
-
-		// 	<Navigate to="/" />
 
 		//	:
 	    	<Container className="d-flex align-items-center justify-content-center min-vh-100">
